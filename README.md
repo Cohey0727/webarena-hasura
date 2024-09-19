@@ -1,4 +1,4 @@
-# VPS(Ubuntu)でDockerを使ってHasuraを起動し、SSHを公開する手順
+# VPS(Ubuntu)でDockerを使ってHasuraを起動して公開する方法
 
 - タスク
   - nginxをインストールし設定
