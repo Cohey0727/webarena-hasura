@@ -1,4 +1,4 @@
-# VPS(Ubuntu)でDockerを使ってHasuraを起動して公開する方法
+# VPS(WebArena Ubuntu)でDockerを使ってHasuraを起動して公開する方法
 
 - タスク
   - nginxをインストールし設定
