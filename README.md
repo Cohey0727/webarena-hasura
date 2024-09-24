@@ -99,8 +99,7 @@ sudo systemctl restart docker
 ファイルの転送
 
 ```sh
-scp -r assets/* ubuntu@webarena:/home/ubuntu/
-scp -r envs/{*,.[!.],..?*} ubuntu@webarena:/home/ubuntu/
+scp -r ./* ubuntu@webarena:/home/ubuntu/
 ```
 
 ### Dockerの再起動
