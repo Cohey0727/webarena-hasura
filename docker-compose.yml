@@ -19,6 +19,16 @@ services:
     networks:
       - hasura-network
 
+  certbot:
+    build:
+      context: .
+      dockerfile: certbot.Dockerfile
+    volumes:
+      - ./ssl:/ssl
+      - ./certbot-www:/var/www/certbot
+    env_file:
+      - env.certbot
+
   nginx:
     build:
       context: .
@@ -28,11 +38,13 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf.template:/etc/nginx/nginx.conf.template:ro
-      - ./ssl:/etc/nginx/ssl:ro
+      - ./ssl:/ssl:ro
+      - ./certbot-www:/var/www/certbot
     env_file:
       - env.nginx
     depends_on:
       - hasura
+      - certbot
     networks:
       - hasura-network
 
