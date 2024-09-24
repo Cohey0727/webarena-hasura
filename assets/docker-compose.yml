@@ -1,11 +1,10 @@
 services:
   postgres:
     image: postgres:15
-    restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
     env_file:
-      - .env.postgres
+      - env.postgres
     networks:
       - hasura-network
 
@@ -15,11 +14,8 @@ services:
       - "8080:8080"
     depends_on:
       - "postgres"
-    restart: always
-    environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
     env_file:
-      - .env.hasura
+      - env.hasura
     networks:
       - hasura-network
 
@@ -34,7 +30,7 @@ services:
       - ./nginx.conf.template:/etc/nginx/nginx.conf.template:ro
       - ./ssl:/etc/nginx/ssl:ro
     env_file:
-      - .env.nginx
+      - env.nginx
     depends_on:
       - hasura
     networks:

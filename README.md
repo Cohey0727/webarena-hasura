@@ -99,5 +99,12 @@ sudo systemctl restart docker
 ファイルの転送
 
 ```sh
-scp docker-compose.yml ubuntu@webarena:/home/ubuntu/
+scp -r assets/* ubuntu@webarena:/home/ubuntu/
+scp -r envs/{*,.[!.],..?*} ubuntu@webarena:/home/ubuntu/
+```
+
+### Dockerの再起動
+
+```sh
+sudo service docker restart
 ```
