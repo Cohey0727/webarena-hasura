@@ -9,7 +9,6 @@
   - ドメイン設定
     - DNSでVPSのIPにドメインを割り当て
   - nginxの設定
-    - nginxをインストール
     - ポート80と443をDocker上のHasuraにリバースプロキシ設定
   - 公開ポートを設定 (HTTP: 80, HTTPS: 443, SSH: 22)
   - SSL証明書を取得 (Let's Encrypt)

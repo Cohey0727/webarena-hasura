@@ -4,12 +4,12 @@ services:
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: postgrespassword
+    env_file:
+      - .env.postgres
     networks:
       - hasura-network
 
-  graphql-engine:
+  hasura:
     image: hasura/graphql-engine:v2.36.8
     ports:
       - "8080:8080"
@@ -17,11 +17,26 @@ services:
       - "postgres"
     restart: always
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
-      HASURA_GRAPHQL_DEV_MODE: "true"
-      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
-      HASURA_GRAPHQL_ADMIN_SECRET: your_admin_secret
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
+    env_file:
+      - .env.hasura
+    networks:
+      - hasura-network
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf.template:/etc/nginx/nginx.conf.template:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    env_file:
+      - .env.nginx
+    depends_on:
+      - hasura
     networks:
       - hasura-network
 
